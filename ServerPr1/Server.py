@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 __author__ = 'comp124'
 import SocketServer
+import sys
 from Rectangle import MyRectangle
+from PyQt4 import QtGui, QtCore
 
 class ServerRectHandler (SocketServer.BaseRequestHandler):
     """Обрабатывает сообщения отправлеяемые клиентом.
@@ -24,5 +26,16 @@ if   __name__ == '__main__':
     HOST, PORT = 'localhost', 11000
     R1 = MyRectangle("ServerSquare")
     MyServer = SocketServer.TCPServer((HOST,PORT),ServerRectHandler)
-    print "Запускаю сервер!"
-    MyServer.serve_forever()
+   # print "Запускаю сервер!"
+   # MyServer.serve_forever()
+    Servapp = QtGui.QApplication(sys.argv)
+    wiget = QtGui.QWidget()
+    wiget.setGeometry(300,300,250,150)
+    wiget.setWindowTitle("Server")
+    StartButt = QtGui.QPushButton("Start",wiget)
+    StartButt.setGeometry(10, 10, 60, 35)
+    #wiget.connect(StartButt,QtCore.SIGNAL('clicked()'), QtGui.qApp, QtCore.SLOT('start()'))
+    StopButton = QtGui.QPushButton("Stop",wiget)
+    StopButton.setGeometry(10, 70, 60, 35)
+    wiget.show()
+    sys.exit(Servapp.exec_())
