@@ -36,7 +36,7 @@ class RectangleServer (SocketServer.TCPServer):
        """ Запускает сервер.
        """
        #ServThread = threading.Thread(target=MyServer.serve_forever)
-       #ServThread.setDaemon(True)
+       ServThread.setDaemon(True)
        #print "Is server thread alive",ServThread.isAlive()
        ServThread.start()
        #print "Is server thread alive",ServThread.isAlive()
@@ -59,7 +59,7 @@ class ServerWindow (QtGui.QWidget):
         """ Создаем собственное окошко
         """
         QtGui.QWidget.__init__(self,parent)
-        self.resize(150,90)
+        self.resize(150,120)
         self.setWindowTitle('Server')
         StartButton = QtGui.QPushButton('Start',self)
         StartButton.setGeometry(10, 10, 60, 35)
@@ -68,8 +68,10 @@ class ServerWindow (QtGui.QWidget):
         self.connect(StartButton,QtCore.SIGNAL('clicked()'),Server.Starter)
         #self.connect(StopButton,QtCore.SIGNAL('clicked()'),Server.Stopper)
 
+
     def closeEvent(self, QCloseEvent):
-        MyServer.shutdown()
+        if ServThread.isAlive():
+           MyServer.shutdown()
         print "Server shutting down!!"
         print "Server thread is a live", ServThread.isAlive()
         QCloseEvent.accept()
