@@ -10,5 +10,5 @@ def SendMessage (x,y):
     sock.send(data)
     recive = sock.recv(1024)
     #print "Answer from server: %s" %recive
-    print "Сервер говорит координаты", recive.split(";")
+    #print "Сервер говорит координаты", recive.split(";")
     sock.close()
